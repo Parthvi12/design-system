@@ -29,8 +29,9 @@ defaults:
 # Job will run on a ubuntu instance
 jobs:
   build-design-system:
-    #uses: ./.github/workflows/Lib-build-design-system.yml
     uses: ./.github/workflows/Lib-build-design-system.yml
+    with:
+      CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
     name: build-design-system
 
   PRCheck:
