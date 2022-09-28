@@ -37,6 +37,11 @@ jobs:
       #- name: Run Storybook tests
       #  run: yarn test-storybook:ci
       
+      - name: Setup upterm session
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        uses: lhotari/action-upterm@v1
+      
       - name: Run Chromatic
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
