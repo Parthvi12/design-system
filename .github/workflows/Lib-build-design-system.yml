@@ -41,7 +41,7 @@ jobs:
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         run: |
-          npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN
+          npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
         
       #- name: Run and publish to Chromatic
       #  uses: chromaui/action@v1
