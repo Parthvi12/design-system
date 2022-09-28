@@ -25,9 +25,13 @@ jobs:
     #uses: ./.github/workflows/Lib-build-design-system.yml
     uses: ./.github/workflows/Lib-build-design-system.yml
     name: build-design-system
+
+  chromatic-test:
+    uses: ./.github/workflows/Lib-Chromatic.yml
+    name: chromatic-test
   
   PRCheck:
-    needs: [build-design-system]
+    needs: [build-design-system, chromatic-test]
     runs-on: ubuntu-latest
     defaults:
       run:
