@@ -36,3 +36,10 @@ jobs:
       
       - name: Run Storybook tests
         run: yarn test-storybook:ci
+        
+      - name: Run and publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}  
