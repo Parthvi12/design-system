@@ -27,7 +27,7 @@ jobs:
     name: build-design-system
 
   chromatic-test:
-    uses: ./.github/workflows/Lib-Chromatic.yml
+    uses: ./.github/workflows/Lib-chromatic.yml
     name: chromatic-test
   
   PRCheck:
