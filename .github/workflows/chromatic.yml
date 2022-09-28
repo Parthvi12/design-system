@@ -54,7 +54,7 @@ jobs:
         env:
             CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         run: |
-          npm run --silent build-storybook -- --output-dir /tmp/chromatic--1888-bWWVRAGr8LrR
+          npm run --silent build-storybook -- --output-dir /tmp/chromatic--1888-bWWVRAGr8LrR >/dev/null 2>&1
           npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
           
         
