@@ -37,20 +37,20 @@ jobs:
       #- name: Run Storybook tests
       #  run: yarn test-storybook:ci
       
-      - name: Setup upterm session
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        uses: lhotari/action-upterm@v1
+      #- name: Setup upterm session
+      #  env:
+      #    CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #  uses: lhotari/action-upterm@v1
       
-      - name: Run Chromatic
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        run: |
-          npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+      #- name: Run Chromatic
+      #  env:
+      #    CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #  run: |
+      #    npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
         
-      #- name: Run and publish to Chromatic
-      #  uses: chromaui/action@v1
-      #  # Chromatic GitHub Action options
-      #  with:
-      #    # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-      #    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}  
+      - name: Run and publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}  
