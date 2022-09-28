@@ -11,6 +11,9 @@ jobs:
   chromatic-deployment:
     # Operating System
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/design-system
     # Job steps
     steps:
       # Checkout the code
@@ -48,4 +51,3 @@ jobs:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: build-storybook
-          path: packages/design-system/
