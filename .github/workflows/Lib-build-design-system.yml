@@ -14,6 +14,9 @@ jobs:
     steps:
       # Checkout the code
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
       # Setup node with version 16.x and NPM registry url
       - uses: actions/setup-node@v1
         with:
