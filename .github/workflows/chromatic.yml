@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: packages/design-system
+        working-directory: design-system/packages/design-system/
     # Job steps
     steps:
       # Checkout the code
