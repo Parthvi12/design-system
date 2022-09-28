@@ -1,27 +1,35 @@
-name: Build Design system Lib
+# .github/workflows/chromatic.yml
 
-on:
-  workflow_call:
+# Workflow name
+name: 'Chromatic'
 
-# Change the working directory for all the jobs in this workflow
-defaults:
-  run:
-    working-directory: packages/design-system
+# Event for the workflow
+on: push
 
+# List of jobs
 jobs:
-  build-design-system:
+  chromatic-deployment:
+    # Operating System
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/design-system
+    # Job steps
     steps:
       # Checkout the code
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
       # Setup node with version 16.x and NPM registry url
       - uses: actions/setup-node@v1
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
+      
+      #- name: Setup upterm session
+      #  env:
+      #    CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #  uses: lhotari/action-upterm@v1
       
       # set git config
       - name: Set git config to github-actions
@@ -32,36 +40,28 @@ jobs:
      # Run yarn install to install project packages
       - name: Yarn
         run: yarn install --frozen-lockfile
-      
-      # yarn build to build the project
-      - name: Build package
-        run: yarn build
-      
-      #- name: Run Storybook tests
-      #  run: yarn test-storybook:ci
-      
+    
       #- name: Setup upterm session
       #  env:
       #    CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
       #  uses: lhotari/action-upterm@v1
       
-      #- name: Run Chromatic
-      #  env:
-      #    CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-      #  run: |
-      #    npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+      # yarn build to build the project
+      - name: Build package
+        run: yarn build
         
-      #- name: Run and publish to Chromatic
-      #  uses: chromaui/action@v1
-      #  # Chromatic GitHub Action options
-      #  with:
-      #    # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-      #    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}  
-      #    #buildScriptName: build-storybook
-          
       - name: Build and run storybook
         env:
             CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         run: |
           npm run --silent build-storybook -- --output-dir /tmp/chromatic--1888-bWWVRAGr8LrR >/dev/null 2>&1
           npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+          
+        
+      #- name: Publish to Chromatic
+      #  uses: chromaui/action@v1
+      #  # Chromatic GitHub Action options
+      #  with:
+      #    # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+      #    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #    #buildScriptName: build-storybook
