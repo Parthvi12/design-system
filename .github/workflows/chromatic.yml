@@ -41,10 +41,10 @@ jobs:
       - name: Yarn
         run: yarn install --frozen-lockfile
     
-      #- name: Setup upterm session
-      #  env:
-      #    CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-      #  uses: lhotari/action-upterm@v1
+      - name: Setup upterm session
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        uses: lhotari/action-upterm@v1
       
       # yarn build to build the project
       - name: Build package
