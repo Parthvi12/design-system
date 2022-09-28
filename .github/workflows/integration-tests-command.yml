@@ -5,6 +5,13 @@ on:
   #repository_dispatch:
   #  types: [ok-to-test-command]
  workflow_dispatch:
+  inputs:
+      sha:
+        description: The SHA-1 hash referring to the commit to check.
+        required: true
+      ref:
+        description: The head branch associated with the pull request.
+        required: true
  pull_request_review:
     branches: [release]
     paths:
