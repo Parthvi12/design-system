@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: design-system/packages/design-system/
+        working-directory: packages/design-system
     # Job steps
     steps:
       # Checkout the code
@@ -41,18 +41,27 @@ jobs:
       - name: Yarn
         run: yarn install --frozen-lockfile
     
-      - name: Setup upterm session
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        uses: lhotari/action-upterm@v1
+      #- name: Setup upterm session
+      #  env:
+      #    CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #  uses: lhotari/action-upterm@v1
       
       # yarn build to build the project
       - name: Build package
         run: yarn build
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        # Chromatic GitHub Action options
-        with:
-          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          #buildScriptName: build-storybook
+        
+      - name: Build and run storybook
+        env:
+            CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: |
+          npm run --silent build-storybook -- --output-dir /tmp/chromatic--1888-bWWVRAGr8LrR
+          npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
+          
+        
+      #- name: Publish to Chromatic
+      #  uses: chromaui/action@v1
+      #  # Chromatic GitHub Action options
+      #  with:
+      #    # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+      #    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #    #buildScriptName: build-storybook
